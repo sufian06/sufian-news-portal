@@ -20,7 +20,13 @@ const displayNews = (newses) => {
                 <h3 class="text-2xl font-bold mb-2">${news.title}</h3>
                 <p>${news.details}</p>
             </div>
-            <div class="author-area"></div>
+            <div class="author-area mt-4 flex items-center">
+                <img class="rounded-full w-8" src="${news.author.img}" alt="">
+                <div class="ml-3">
+                    <h4>${news.author.name}</h4>
+                    <p>${news.author.published_date}</p>
+                </div>
+            </div>
         </div>
     </div>
         `;
