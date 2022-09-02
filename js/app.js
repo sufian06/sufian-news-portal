@@ -25,8 +25,6 @@ const loadNews = (categoryId) => {
   const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
   toggleSpinner(true);
 
-  //   console.log(categoryId);
-
   fetch(url)
     .then((ref) => ref.json())
     .then((data) => displayNews(data.data))
@@ -37,18 +35,20 @@ const displayNews = (newses) => {
   const newsContainer = document.getElementById("news-container");
   newsContainer.innerHTML = "";
 
-//   no news message
-    // const noNews = document.getElementById('no-news-message');
-    // if(newses.length === 0) {
-    //     noNews.classList.remove('d-none')
-    // } else {
-    //     noNews.classList.add('d-none')
-    // }
+  //   no news message
+  // const noNews = document.getElementById('no-news-message');
+  // if(newses.length === 0) {
+  //     noNews.classList.remove('d-none')
+  // } else {
+  //     noNews.classList.add('d-none')
+  // }
 
   newses.forEach((news) => {
     const newsDiv = document.createElement("div");
     newsDiv.innerHTML = `
-        <div class="flex items-center p-5 mt-7" onclick="loadNewsDetails('${news._id}')" data-bs-toggle="modal" data-bs-target="#newsDetailModal">
+        <div class="flex items-center p-5 mt-7" onclick="loadNewsDetails('${
+          news._id
+        }')" data-bs-toggle="modal" data-bs-target="#newsDetailModal">
         <img src="${news.thumbnail_url}" alt="">
         <div class="p-5">
             <div class="content-area">
@@ -109,32 +109,21 @@ const toggleSpinner = (isLoading) => {
 };
 
 const loadNewsDetails = async (id) => {
-    const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
-    const res = await fetch(url);
-    const  data = await res.json();
-    displayNewsDetails(data);
-}
+  const url = `https://openapi.programming-hero.com/api/news/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayNewsDetails(data.data[0]);
+};
 
-const displayNewsDetails = news => {
-    console.log(news)
-    const modalTitle = document.getElementById("newsDetalModalLabel");
-    modalTitle.innerText = news.name;
-    const newsDetails = document.getElementById("news-details");
-    newsDetails.innerHTML = `
-    <p>Title: ${
-      news.title ? news.title : "No Title Found"
-    }</p>
-    <p>Storage: ${
-        news.mainFeatures ? news.mainFeatures.storage : "No Storage Information"
-    }</p>
-    <p>Bluetooth: ${
-        news.others ? news.others.Bluetooth : "No Bluetooth Information"
-    }</p>
+const displayNewsDetails = (news) => {
+  //   console.log(news);
+  const modalTitle = document.getElementById("newsDetailModalLabel");
+  modalTitle.innerText = news.title;
+  const newsDetails = document.getElementById("news-details");
+  newsDetails.innerHTML = `
+    <p>Details: ${news.details ? news.details : "No details Found"}</p>
+    
   `;
-}
-// loadNewsDetails()
-// onclick="loadNewsDetails('${news._id}')"
-
-// loadNews("02");
+};
 
 loadCategories();
