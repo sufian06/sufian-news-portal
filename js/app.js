@@ -46,13 +46,13 @@ const displayNews = (newses) => {
   newses.forEach((news) => {
     const newsDiv = document.createElement("div");
     newsDiv.innerHTML = `
-        <div class="flex items-center p-5 mt-7" onclick="loadNewsDetails('${
+        <div class="flex flex-col lg:flex-row items-center p-4 lg:p-5 mt-7" onclick="loadNewsDetails('${
           news._id
         }')" data-bs-toggle="modal" data-bs-target="#newsDetailModal">
         <img src="${news.thumbnail_url}" alt="">
-        <div class="p-5">
-            <div class="content-area">
-                <h3 class="text-2xl font-bold mb-5">${news.title}</h3>
+        <div class="lg:p-5">
+            <div class="content-area mt-2 lg:mt-0">
+                <h3 class="text-2xl font-bold mb-2 lg:mb-5">${news.title}</h3>
                 <p>${news.details.slice(0, 600)}....</p>
             </div>
             <div class="mt-8 flex justify-between items-center">
