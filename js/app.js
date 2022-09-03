@@ -57,11 +57,12 @@ const displayNews = (newses) => {
   if(newses.length !== 0) {
     newsItem.innerText = newses.length;
   } else {
-    newsItem.innerText = 'No News Found';
+    newsItem.innerText = 'data not available';
   }
   
 
   newses.forEach((news) => {
+    // console.log(news)
     const newsDiv = document.createElement("div");    
     newsDiv.innerHTML = `
         <div class="flex flex-col lg:flex-row items-center p-4 lg:p-5 mt-7" onclick="loadNewsDetails('${
@@ -134,12 +135,29 @@ const loadNewsDetails = async (id) => {
 };
 
 const displayNewsDetails = (news) => {
-  //   console.log(news);
+    // console.log(news);
   const modalTitle = document.getElementById("newsDetailModalLabel");
   modalTitle.innerText = news.title;
   const newsDetails = document.getElementById("news-details");
   newsDetails.innerHTML = `
-    <p>Details: ${news.details ? news.details : "No details Found"}</p>
+    <img src="${news.image_url ? news.image_url : 'no data found'}" alt="">
+    <p class="mt-4">Details: ${news.details ? news.details : "No details Found"}</p>
+    <div class="author-area flex items-center mt-4">
+      <img class="rounded-full w-8" src="${
+        news.author.img
+      }" alt="">
+      <div class="ml-3">
+          <h4>${
+            news.author.name ? news.author.name : "No Data Found"
+          }</h4>
+          <p>${
+            news.author.published_date
+              ? news.author.published_date
+              : "No Data Found"
+          }</p>
+          
+      </div>
+  </div>
     
   `;
 };
