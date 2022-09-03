@@ -9,8 +9,12 @@ const loadCategories = () => {
 
 const displayCategories = (categories) => {
   const categoriesContainer = document.getElementById("display-categories");
+  
   categories.forEach((category) => {
+    // console.log(category.category_id)
     const categoryLi = document.createElement("li");
+   
+    
     categoryLi.innerHTML = `            
                 <li onclick="loadNews('${category.category_id}')"
                     class="text-lg py-1 px-2.5 cursor-pointer text-slate-400 hover:text-blue-600 hover:bg-blue-100 rounded">
@@ -18,12 +22,15 @@ const displayCategories = (categories) => {
                 </li>
             `;
     categoriesContainer.appendChild(categoryLi);
+    const categoryName = document.getElementById('category-name');
+    categoryName.innerText = category.category_name;
   });
 };
 
 const loadNews = (categoryId) => {
   const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
   toggleSpinner(true);
+
 
   fetch(url)
     .then((ref) => ref.json())
@@ -43,8 +50,19 @@ const displayNews = (newses) => {
   //     noNews.classList.add('d-none')
   // }
 
+  // console.log(newses)
+
+  const newsItem = document.getElementById('category-items');
+  
+  if(newses.length !== 0) {
+    newsItem.innerText = newses.length;
+  } else {
+    newsItem.innerText = 'No News Found';
+  }
+  
+
   newses.forEach((news) => {
-    const newsDiv = document.createElement("div");
+    const newsDiv = document.createElement("div");    
     newsDiv.innerHTML = `
         <div class="flex flex-col lg:flex-row items-center p-4 lg:p-5 mt-7" onclick="loadNewsDetails('${
           news._id
