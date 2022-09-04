@@ -34,13 +34,13 @@ const loadNews = (categoryId) => {
 };
 
 const displayNews = (newses) => {
-  // console.log(newses)
-  // const noNewsMessage = document.getElementById("no-news-message");
-  // if (newses.length === 0) {
-  //   noNewsMessage.classList.remove("d-none");
-  // } else {
-  //   noNewsMessage.classList.add("d-none");
-  // }
+  const noMessages = document.getElementById("no-messages");
+
+  if (newses.length === 0) {
+    noMessages.classList.remove("d-none");
+  } else {
+    noMessages.classList.add("d-none");
+  }
 
   const newsContainer = document.getElementById("news-container");
   newsContainer.innerHTML = "";
@@ -49,8 +49,6 @@ const displayNews = (newses) => {
   newses.sort((a, b) => {
     return b.total_view - a.total_view;
   });
-
-  // console.log(newses)
 
   const newsItem = document.getElementById("category-items");
 
@@ -61,8 +59,6 @@ const displayNews = (newses) => {
   }
 
   newses.forEach((news) => {
-    // console.log(news)
-
     const newsDiv = document.createElement("div");
     newsDiv.innerHTML = `
         <div class="flex bg-white rounded-lg flex-col lg:flex-row items-center p-4 lg:p-5 mt-7" onclick="loadNewsDetails('${
@@ -136,7 +132,6 @@ const loadNewsDetails = async (id) => {
 };
 
 const displayNewsDetails = (news) => {
-  // console.log(news);
   const modalTitle = document.getElementById("newsDetailModalLabel");
   modalTitle.innerText = news.title;
   const newsDetails = document.getElementById("news-details");
