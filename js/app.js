@@ -42,6 +42,11 @@ const displayNews = (newses) => {
   const newsContainer = document.getElementById("news-container");
   newsContainer.innerHTML = "";
 
+  // news sorting
+  newses.sort((a, b) => {
+   return b.total_view - a.total_view
+  })
+
   //   no news message
   // const noNews = document.getElementById('no-news-message');
   // if(newses.length === 0) {
@@ -63,6 +68,7 @@ const displayNews = (newses) => {
 
   newses.forEach((news) => {
     // console.log(news)
+
     const newsDiv = document.createElement("div");    
     newsDiv.innerHTML = `
         <div class="flex bg-white rounded-lg flex-col lg:flex-row items-center p-4 lg:p-5 mt-7" onclick="loadNewsDetails('${
