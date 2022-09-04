@@ -11,9 +11,10 @@ const displayCategories = (categories) => {
   const categoriesContainer = document.getElementById("display-categories");
   
   categories.forEach((category) => {
-    // console.log(category.category_id)
+    // console.log(category.category_name)
+    // const categoryName = document.getElementById('category-name');
+    // categoryName.innerHTML = category.category_name
     const categoryLi = document.createElement("li");
-   
     
     categoryLi.innerHTML = `            
                 <li onclick="loadNews('${category.category_id}')"
@@ -22,8 +23,7 @@ const displayCategories = (categories) => {
                 </li>
             `;
     categoriesContainer.appendChild(categoryLi);
-    const categoryName = document.getElementById('category-name');
-    categoryName.innerText = category.category_name;
+   
   });
 };
 
@@ -65,14 +65,14 @@ const displayNews = (newses) => {
     // console.log(news)
     const newsDiv = document.createElement("div");    
     newsDiv.innerHTML = `
-        <div class="flex flex-col lg:flex-row items-center p-4 lg:p-5 mt-7" onclick="loadNewsDetails('${
+        <div class="flex bg-white rounded-lg flex-col lg:flex-row items-center p-4 lg:p-5 mt-7" onclick="loadNewsDetails('${
           news._id
         }')" data-bs-toggle="modal" data-bs-target="#newsDetailModal">
         <img src="${news.thumbnail_url}" alt="">
         <div class="lg:p-5">
             <div class="content-area mt-2 lg:mt-0">
                 <h3 class="text-2xl font-bold mb-2 lg:mb-5">${news.title}</h3>
-                <p>${news.details.slice(0, 600)}....</p>
+                <p>${news.details.slice(0, 300)}....</p>
             </div>
             <div class="mt-8 flex justify-between items-center">
                 <div class="author-area flex items-center">
@@ -112,7 +112,8 @@ const displayNews = (newses) => {
         </div>
     </div>
         `;
-    newsContainer.appendChild(newsDiv);
+        newsContainer.appendChild(newsDiv);
+    
     toggleSpinner(false);
   });
 };
